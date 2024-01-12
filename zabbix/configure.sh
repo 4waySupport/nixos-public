@@ -1,6 +1,6 @@
 #!/bin/sh
 
-nix_config_url="https://raw.githubusercontent.com/4waySupport/nixos-public/main/vPentest/localconfiguration.nix"
+nix_config_url="https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/localconfiguration.nix"
 
 read -p "Username: " username
 read -p "Hostname: " hostname
