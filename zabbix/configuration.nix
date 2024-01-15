@@ -23,6 +23,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
    
   environment.systemPackages = with pkgs; [
     tailscale
+    pwgen
     #gcc
     #ntpdate
     #ntp
