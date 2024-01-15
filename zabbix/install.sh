@@ -26,7 +26,7 @@ nixos-generate-config --root /mnt
 
 # Enable SSH and allow root login
 sed -i 's/  \# services.openssh.enable = true\;/  services.openssh.enable = true\; \
-  services.openssh.permitRootLogin = \"yes\"\; /g' /mnt/etc/nixos/configuration.nix
+  services.openssh.settings.PermitRootLogin = \"yes\"\; /g' /mnt/etc/nixos/configuration.nix
 
 # Install
 nixos-install

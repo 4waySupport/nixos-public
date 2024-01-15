@@ -23,34 +23,30 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
    
   environment.systemPackages = with pkgs; [
     tailscale
-    #ruby
-        
-    (ruby.withPackages (ps: with ps; [ rubyPackages.rails-dom-testing ]))
-    
-    gcc
+    #gcc
     #ntpdate
     ntp
     #libevent-devel
-    libevent
+    #libevent
     #apt-transport-https
     #maybe - rPackages.transport
     #ca-certificates
     #gnupg-agent
-    gnupg
+    #gnupg
     #software-properties-common
     #??
-    nmap
+    #nmap
     #net-tools
-    nettools
+    #nettools
     #kernel-devel
     #??
     #make
-    gnumake
+    #gnumake
     #??
     #ncurses-devel
-    ncurses
+    #ncurses
     #openssl-devel
-    openssl
+    #openssl
     unzip
     wget
   ];
@@ -92,10 +88,10 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 
   # Enable SSH.
   services.openssh.enable = true;
-  services.openssh.permitRootLogin = "yes";
+  services.openssh.settings.PermitRootLogin = "yes";
 
   #Sorandom
-  system.stateVersion = "22.11";
+  system.stateVersion = "23.11";
 
   # User information
   users.users = {
