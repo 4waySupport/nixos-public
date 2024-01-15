@@ -25,7 +25,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     tailscale
     #gcc
     #ntpdate
-    ntp
+    #ntp
     #libevent-devel
     #libevent
     #apt-transport-https
@@ -34,12 +34,10 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     #gnupg-agent
     #gnupg
     #software-properties-common
-    #??
     #nmap
     #net-tools
     #nettools
     #kernel-devel
-    #??
     #make
     #gnumake
     #??
