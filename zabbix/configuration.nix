@@ -18,36 +18,11 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   networking.useDHCP = true;
   time.timeZone = "Europe/London";
 
-  # Tail Scale
-  
-   
   environment.systemPackages = with pkgs; [
     tailscale
-    pwgen
-    #gcc
-    #ntpdate
-    #ntp
-    #libevent-devel
-    #libevent
-    #apt-transport-https
-    #maybe - rPackages.transport
-    #ca-certificates
-    #gnupg-agent
-    #gnupg
-    #software-properties-common
-    #nmap
-    #net-tools
-    #nettools
-    #kernel-devel
-    #make
-    #gnumake
-    #??
-    #ncurses-devel
-    #ncurses
-    #openssl-devel
-    #openssl
     unzip
     wget
+    pwgen
   ];
 
   services.tailscale.enable = true;
