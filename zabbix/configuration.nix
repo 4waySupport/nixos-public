@@ -64,6 +64,15 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
 
+  # Add Zabbix proxy as Docker containers
+  services.docker.containers = {
+    zabbix-proxy = {
+      image = "zabbix/zabbix-proxy-sqlite3";
+      restartPolicy = "always";
+      dependsOn = ["zabbix-db"];
+    };
+  };
+
   #Sorandom
   system.stateVersion = "23.11";
 
