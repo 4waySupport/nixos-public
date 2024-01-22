@@ -70,8 +70,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   services.docker.containers = {
     zabbix-proxy = {
       image = "zabbix/zabbix-proxy-sqlite3";
-      restartPolicy = "always";
-      dependsOn = ["zabbix-db"];
+      restartPolicy = "always";      
     };
   };
 
