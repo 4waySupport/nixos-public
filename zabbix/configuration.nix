@@ -59,6 +59,8 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 
   # Install Docker.
   virtualisation.docker.enable = true;
+  services.docker.enable = true;
+
 
   # Enable SSH.
   services.openssh.enable = true;
