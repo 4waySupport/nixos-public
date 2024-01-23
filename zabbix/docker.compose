@@ -1,0 +1,18 @@
+version: '3.3'
+
+services:
+  zabbix-proxy-sqlite:
+    image: zabbix/zabbix-proxy-sqlite3:latest
+    container_name: zabbix-proxy-sqlite
+    user: root
+    ports:
+      - "10051:10051"  # Zabbix Proxy listening port
+    environment:
+      - ZBX_SERVER_HOST=XXX
+      - ZBX_HOSTNAME=zabbix-proxy
+      - ZBX_PROXYMODE=0
+
+    volumes:
+      - /docker/zabbix/db/:/var/lib/zabbix/db_data
+      - /docker/zabbix/externalscripts:/usr/lib/zabbix/externalscripts
+      - /docker/zabbix/modules:/var/lib/zabbix/modules
