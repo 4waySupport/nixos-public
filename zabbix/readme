@@ -1,0 +1,20 @@
+Installing Zabbix on Nix OS
+
+Boot to Live CD and get ip address (ip -a)
+passwd nixos
+SSH into it 
+sudo -s
+
+curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh >> install.sh
+
+chmod +x install.sh
+./install.sh
+
+set the root pw according to documented root pw "Zabbix Nix Build"
+
+reboot
+
+login as root
+./configure (details in BW "Zabbix Nix Build")
+
+nixos-rebuild switch (this will rebuild to the configuration stored in github - 4waySupport/nixos-public/zabbix/configuration.nix)
