@@ -129,7 +129,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     "${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" ];
-      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtUnYdwOSLoMG5C+8XRuBp01Ll+dCtgh7rKD5k0W8L5FmLffQ2HPTFAMperOQY33NAqKMrmlX9o6YBnWC>
+      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtUnYdwOSLoMG5C+8XRuBp01Ll+dCtgh7rKD5k0W8L5FmLffQ2HPTFAMperOQY33NAqKMrmlX9o6YBnWCig6a81bRzwJ9suqb8hnrkdratTxQqSl9lOuPxP6XYOWF2mmoZg+CFuQrFMXnO9dokQpjDWNK2s+RYtGfoZaEdsoKb6MshmgQ0zEd4/LNz46b50e0jcwfKR7eCmgaatKB10Bp/CU2pzx/jg6Wriqs55Zpx9abcamIVwENBJjQrHyG9hL0wUctLzMR59F0h48IT0Ze87X27DxBhV8vQOWRSfrAYxh/6EgnN/u6HHEN3vb/IneVoHxSMsnaI/QWh7NOeZBTR rsa-key-20230110" ];
     };
   };
 }
