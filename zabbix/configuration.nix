@@ -8,13 +8,9 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     [
       # Include the hardware configuration for the machine.
       /etc/nixos/hardware-configuration.nix
+      # Download arion and build from source
       ((builtins.fetchTarball "https://github.com/hercules-ci/arion/archive/f295eabd25b7c894ab405be784e2a010f83fde55.tar.gz") + "/nixos-module.nix")
     ];
-
-#  imports =
-#    [
-#       ((builtins.fetchTarball "https://github.com/hercules-ci/arion/archive/f295eabd25b7c894ab405be784e2a010f83fde55.tar.gz") + "/nixos-module.nix")
-#    ];
 
   # systemd
   boot.loader.systemd-boot.enable = true;
@@ -24,6 +20,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   networking.useDHCP = true;
   time.timeZone = "Europe/London";
 
+  # Install these packages
   environment.systemPackages = with pkgs; [
     tailscale
     unzip
@@ -33,7 +30,8 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     docker-client
   ];
 
-#  This below commented out config is easy, but it uses an outdated version of Zabbix Proxy, so instead a container was used. This config might become relevant in the future, so it has been left here.
+#  This below commented out config is easy and uses packaged Zabbix, but it uses an outdated version of Zabbix Proxy
+#  so instead a container was used. This config might become relevant in the future, so it has been left here.
 
 #  services.zabbixProxy = {
 #    enable = true;
@@ -44,39 +42,46 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 #    database.user = "zabbix";
 #  };
 
+  # Enable docker
   virtualisation.docker.enable = true;
-#  virtualisation.podman.enable = false;
-#  virtualisation.podman.dockerSocket.enable = true;
-#  virtualisation.podman.defaultNetwork.settings.dns_enabled = true;
 
-# Declare environment variable for the build part for Arion
+#  This was an effort to get podman working instead of using docker, but it kept throwing a socket error trying to
+#  connect to the docker socket instead of the podman socket
 
-# env = {
-#  DOCKER_HOST = "unix:///run/podman/podman.sock";
-# };
+#  virtualisation.podman = {
+#    enable = true;
+#    autoPrune.enable = true;
+#    dockerSocket.enable = true;
+#    dockerCompat = true;
+#    defaultNetwork.settings.dns_enabled = true;
+#  };
 
+  # Tell arion to use Docker
+  virtualisation.arion.backend = "docker";
 
-
-#  This below commented out confis is trying to get the container to run from the main nix config, and avoid requiring arion-compose.nix and having to run arion up. The config on line 11 is also trying to get this working.
-
-  virtualisation.arion = {
-    backend = "docker";
-    projects.zabbixproxy = {
-      serviceName = "zabbixproxy";
-      settings = {
-        project.name = "zabbixproxy";
-        services.zabbixproxy = {
-          service.image = "zabbix/zabbix-proxy-sqlite3";
-          service.user = "root";
-          service.volumes = [ "${toString ./.}/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/" ];
-          service.environment.ZBX_SERVER_HOST = "dajeubntzabbix.tailadc66.ts.net";
-          service.environment.ZBX_PROXYMODE = "0";
-          service.environment.ZBX_HOSTNAME = "${hostname}";
+  # Define our Zabbix Proxy container
+  virtualisation.arion.projects.zabbix.settings.services = {
+        zabbixproxy.service = {
+          image = "zabbix/zabbix-proxy-sqlite3";
+          user = "root";
+          volumes = [ "${toString ./.}/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/" ];
+          environment.ZBX_SERVER_HOST = "dajeubntzabbix.tailadc66.ts.net";
+          environment.ZBX_PROXYMODE = "0";
+          environment.ZBX_HOSTNAME = "${hostname}";
         };
-      };
-    };
   };
 
+  # Define our Zabbix Agent container
+   virtualisation.arion.projects.zabbix.settings.services = {
+        zabbixagent.service = {
+          image = "zabbix/zabbix-agent2";
+          user = "root";
+          environment.ZBX_SERVER_HOST = "dajeubntzabbix.tailadc66.ts.net";
+          environment.ZBX_HOSTNAME = "${hostname}";
+        };
+  };
+
+  # Enable Tailscale
   services.tailscale.enable = true;
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   networking.firewall.enable = false;
@@ -116,9 +121,6 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Sorandom
   system.stateVersion = "23.11";
 
-#  # Export DOCKER_HOST variable so that it uses podman instead of docker
-#  environment.variables.DOCKER_HOST = "unix:///run/podman/podman.sock";
-
   # Dont require password to sudo
   security.sudo.wheelNeedsPassword = false;
 
@@ -127,7 +129,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     "${username}" = {
       isNormalUser = true;
       extraGroups = [ "wheel" "networkmanager" ];
-      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtUnYdwOSLoMG5C+8XRuBp01Ll+dCtgh7rKD5k0W8L5FmLffQ2HPTFAMperOQY33NAqKMrmlX9o6YBnWCig6a81bRzwJ9suqb8hnrkdratTxQqSl9lOuPxP6XYOWF2mmoZg+CFuQrFMXnO9dokQpjDWNK2s+RYtGfoZaEdsoKb6MshmgQ0zEd4/LNz46b50e0jcwfKR7eCmgaatKB10Bp/CU2pzx/jg6Wriqs55Zpx9abcamIVwENBJjQrHyG9hL0wUctLzMR59F0h48IT0Ze87X27DxBhV8vQOWRSfrAYxh/6EgnN/u6HHEN3vb/IneVoHxSMsnaI/QWh7NOeZBTR rsa-key-20230110" ];
+      openssh.authorizedKeys.keys = [ "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCtUnYdwOSLoMG5C+8XRuBp01Ll+dCtgh7rKD5k0W8L5FmLffQ2HPTFAMperOQY33NAqKMrmlX9o6YBnWC>
     };
   };
 }
