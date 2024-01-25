@@ -5,10 +5,7 @@ passwd nixos
 SSH into it 
 sudo -s
 
-curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh >> install.sh
-
-chmod +x install.sh
-./install.sh
+curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh | sh
 
 set the root pw according to documented root pw "Zabbix Nix Build"
 
