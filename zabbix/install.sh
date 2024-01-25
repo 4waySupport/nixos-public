@@ -28,8 +28,8 @@ nixos-generate-config --root /mnt
 sed -i 's/  \# services.openssh.enable = true\;/  services.openssh.enable = true\; \
   services.openssh.settings.PermitRootLogin = \"yes\"\; /g' /mnt/etc/nixos/configuration.nix
 
-# Install - Do not prompt for root password.
-nixos-install  --no-root-passwd
+# Install
+nixos-install
 
 # Download configure script
 mkdir -p /mnt/root
