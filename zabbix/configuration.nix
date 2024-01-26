@@ -25,7 +25,6 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     tailscale
     unzip
     wget
-    pwgen
     arion
     docker-client
   ];
