@@ -1,17 +1,28 @@
 Installing Zabbix on Nix OS
 
-Boot to Live CD and get ip address (ip -a)
-passwd nixos
-SSH into it 
+# Boot to Nixos Live CD, it will auto login as nixos user
+
+# Get the IP address of the live environment
+ip -a
+
+# Change the password of the nixos user so that you can SSH in, suggest jusing using "nixos" as the password
+passwd
+
+# SSH into the live environment using user nixos and the password set above
+# Then become root
 sudo -s
 
+# Download and run the installation script from the 4way Github
 curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh | sh
 
-set the root pw according to documented root pw "Zabbix Nix Build"
-
+# At the end of the installation, it will prompt you for the root password. Look in BW for an entry called "Zabbix Nix Build" and set the password to this
+# Once its finished, it will ask you to reboot
 reboot
 
-login as root
-./configure (details in BW "Zabbix Nix Build")
+# Once the system has rebooted, login as root using the password in BW
+# Run the configure script
+# This configure script will ask for some details such as the hostname of the server and also the tailscale key, you should get the TS key from BW in the entry called "Tailscale Auth Key (Zabbix)"
+./configure
 
-nixos-rebuild switch (this will rebuild to the configuration stored in github - 4waySupport/nixos-public/zabbix/configuration.nix)
+# Finally, run the rebuild switch command to become the latest version of the config
+nixos-rebuild switch
