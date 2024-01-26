@@ -23,7 +23,7 @@ passwd
 sudo -s
 
 # Download and run the installation script from the 4way Github
-curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh | sh
+curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh && chmod +x install.sh && ./install.sh
 
 # At the end of the installation, it will prompt you for the root password. Look in BW for an entry called "Zabbix Nix Build" and set the password to this
 # Once its finished, it will ask you to reboot
