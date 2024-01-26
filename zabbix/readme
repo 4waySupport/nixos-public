@@ -1,5 +1,15 @@
 Installing Zabbix on Nix OS
 
+# TL:DR (skip to the next section if this is your first time
+ip -a
+passwd
+sudo -s
+curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh | sh
+reboot
+./configure
+nixos-rebuild switch
+
+# If this is your first time, read through the comments for a more verbose understanding
 # Boot to Nixos Live CD, it will auto login as nixos user
 
 # Get the IP address of the live environment
