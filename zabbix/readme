@@ -4,7 +4,7 @@ Installing Zabbix on Nix OS
 ip -a
 passwd
 sudo -s
-curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh | sh
+curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/install.sh && chmod +x install.sh && ./install.sh
 reboot
 ./configure
 nixos-rebuild switch
