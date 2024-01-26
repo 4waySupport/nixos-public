@@ -8,6 +8,7 @@ curl https://raw.githubusercontent.com/4waySupport/nixos-public/main/zabbix/inst
 reboot
 ./configure
 nixos-rebuild switch
+(approve the machine in tailscale, it will appear to hang on this point)
 
 # If this is your first time, read through the comments for a more verbose understanding
 # Boot to Nixos Live CD, it will auto login as nixos user
@@ -35,4 +36,5 @@ reboot
 ./configure
 
 # Finally, run the rebuild switch command to become the latest version of the config
+# Note, that it will appear to get stuck at this point, go to the Tailscale portal to approve the device
 nixos-rebuild switch
