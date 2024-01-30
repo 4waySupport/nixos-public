@@ -5,10 +5,10 @@ config_script="https://raw.githubusercontent.com/4waySupport/nixos-public/main/z
 
 # Create partitions
 parted --script /dev/sda -- mklabel gpt
-parted --script  /dev/sda -- mkpart primary 512MiB -8GiB
-parted --script  /dev/sda -- mkpart primary linux-swap -8GiB 100%
 parted --script  /dev/sda -- mkpart ESP fat32 1MiB 512MiB
-parted --script  /dev/sda -- set 3 esp on
+parted --script  /dev/sda -- mkpart primary linux-swap 512MiB 4GiB
+parted --script  /dev/sda -- mkpart primary 4GiB 100%
+parted --script  /dev/sda -- set 1 esp on
 
 # Format partitions
 mkfs.ext4 -L NIXOS /dev/sda1
