@@ -64,7 +64,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           image = "zabbix/zabbix-proxy-sqlite3";
           user = "root";
           volumes = [ "/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/" ];
-          environment.ZBX_SERVER_HOST = "zabbix";
+          environment.ZBX_SERVER_HOST = "zabbix.monkey-duck.ts.net";
           environment.ZBX_PROXYMODE = "0";
           environment.ZBX_HOSTNAME = "${hostname}";
         };
