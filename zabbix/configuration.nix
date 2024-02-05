@@ -65,9 +65,9 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           user = "root";
           volumes = [
             "/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/"
-            "/docker/zabbix/proxy/mibs:/var/lib/zabbix/mibs/"
-            "/docker/zabbix/proxy/snmptraps:/var/lib/zabbix/snmptraps/"
-            "/docker/zabbix/proxy/modules:/var/lib/zabbix/modules/"
+            "/docker/nixos-public/zabbix/MIBs:/var/lib/zabbix/mibs/"
+            "/docker/nixos-public/zabbix/snmptraps:/var/lib/zabbix/snmptraps/"
+            "/docker/nixos-public/zabbix/modules:/var/lib/zabbix/modules/"
                     ];
           environment.ZBX_SERVER_HOST = "zabbixsc.monkey-duck.ts.net";
           environment.ZBX_PROXYMODE = "0";
