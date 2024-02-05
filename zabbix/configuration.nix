@@ -69,7 +69,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
             "/docker/nixos-public/zabbix/snmptraps:/var/lib/zabbix/snmptraps/"
             "/docker/nixos-public/zabbix/modules:/var/lib/zabbix/modules/"
                     ];
-          environment.ZBX_SERVER_HOST = "zabbixsc.monkey-duck.ts.net";
+          environment.ZBX_SERVER_HOST = "zabbix.monkey-duck.ts.net";
           environment.ZBX_PROXYMODE = "0";
           environment.ZBX_HOSTNAME = "${hostname}";
         };
@@ -80,7 +80,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
         zabbixagent.service = {
           image = "zabbix/zabbix-agent2";
           user = "root";
-          environment.ZBX_SERVER_HOST = "zabbixsc.monkey-duck.ts.net";
+          environment.ZBX_SERVER_HOST = "zabbix.monkey-duck.ts.net";
           environment.ZBX_HOSTNAME = "${hostname}";
         };
   };
