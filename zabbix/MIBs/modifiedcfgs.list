@@ -1,0 +1,9 @@
+cpqfca.cfg
+cpqhost.cfg
+cpqsinfo.cfg
+cpqrack.cfg
+cpqscsi.cfg
+cpqhlth.cfg
+SNMP-COMMUNITY-MIB.cfg
+SNMP-VIEW-BASED-ACM-MIB.cfg
+Synergy_100G_hpeUserInitiatedTrap.cfg
