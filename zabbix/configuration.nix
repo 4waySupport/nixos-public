@@ -27,6 +27,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     wget
     arion
     docker-client
+    git
   ];
 
 #  This below commented out config is easy and uses packaged Zabbix, but it uses an outdated version of Zabbix Proxy
