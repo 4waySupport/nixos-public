@@ -12,10 +12,6 @@ read -p "Agent registration Identity: " agentid
 curl $nix_config_url > /etc/nixos/configuration.nix
 
 # Build local configuration
-
-echo $agentpsk > /docker/zabbix/agent/agentpsk
-echo $agentid > /docker/zabbix/agent/agentid
-
 cat <<EOF > /etc/nixos/common.nix
 {
   hostname = "$hostname";
@@ -24,3 +20,6 @@ cat <<EOF > /etc/nixos/common.nix
   tsroute_enabled = "$tsroute_enabled";  
 }
 EOF
+
+echo $agentpsk > /docker/zabbix/agent/agentpsk
+echo $agentid > /docker/zabbix/agent/agentid
