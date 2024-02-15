@@ -6,7 +6,6 @@ nix_config_url="https://raw.githubusercontent.com/4waySupport/nixos-public/main/
 read -p "Hostname: " hostname
 read -p "Tailscale Key: " tskey
 read -p "Agent registration PSK: " agentpsk
-read -p "Agent registration Identity: " agentid
 
 # Download live config
 curl $nix_config_url > /etc/nixos/configuration.nix
@@ -15,7 +14,6 @@ curl $nix_config_url > /etc/nixos/configuration.nix
 
 mkdir /docker/zabbix/agent -p
 echo $agentpsk > /docker/zabbix/agent/agentpsk
-echo $agentid > /docker/zabbix/agent/agentid
 
 cat <<EOF > /etc/nixos/common.nix
 {
