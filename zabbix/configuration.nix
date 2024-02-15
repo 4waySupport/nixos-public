@@ -30,31 +30,8 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     git
   ];
 
-#  This below commented out config is easy and uses packaged Zabbix, but it uses an outdated version of Zabbix Proxy
-#  so instead a container was used. This config might become relevant in the future, so it has been left here.
-
-#  services.zabbixProxy = {
-#    enable = true;
-#    server = "dajeubntzabbix.tailadc66.ts.net"; # Change this to your Zabbix server's hostname or IP address
-#    database.type = "sqlite";
-#    database.name = "/var/lib/zabbix/db.db";
-#    database.createLocally = false;
-#    database.user = "zabbix";
-#  };
-
   # Enable docker
   virtualisation.docker.enable = true;
-
-#  This was an effort to get podman working instead of using docker, but it kept throwing a socket error trying to
-#  connect to the docker socket instead of the podman socket
-
-#  virtualisation.podman = {
-#    enable = true;
-#    autoPrune.enable = true;
-#    dockerSocket.enable = true;
-#    dockerCompat = true;
-#    defaultNetwork.settings.dns_enabled = true;
-#  };
 
   # Tell arion to use Docker
   virtualisation.arion.backend = "docker";
@@ -64,6 +41,10 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
         zabbixproxy.service = {
           image = "zabbix/zabbix-proxy-sqlite3";
           user = "root";
+          ports = [
+            "10050:10050"
+            "10051:10051"
+          ];
           volumes = [
             "/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/"
             "/docker/nixos-public/zabbix/MIBs:/var/lib/zabbix/mibs/"
