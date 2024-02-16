@@ -62,8 +62,14 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
         zabbixagent.service = {
           image = "zabbix/zabbix-agent2";
           user = "root";
+          volumes = [
+            "/docker/zabbix/agent/:/var/lib/zabbix/agent/"
+                    ];
           environment.ZBX_SERVER_HOST = "zabbix.monkey-duck.ts.net";
           environment.ZBX_HOSTNAME = "${hostname}";
+          environment.ZBX_TLSCONNECT = "psk";
+          environment.ZBX_TLSPSKFILE = "/var/lib/zabbix/agent/agentpsk.psk";
+          environment.ZBX_TLSPSKIDENTITY = "4WSSPSK001";
         };
   };
 
