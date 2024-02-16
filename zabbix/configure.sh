@@ -13,7 +13,7 @@ curl $nix_config_url > /etc/nixos/configuration.nix
 # Build local configuration
 
 mkdir /docker/zabbix/agent -p
-echo $agentpsk > /docker/zabbix/agent/agentpsk
+echo $agentpsk > /docker/zabbix/agent/agentpsk.psk
 
 cat <<EOF > /etc/nixos/common.nix
 {
