@@ -44,7 +44,8 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           ports = [
             "10050:10050"
             "10051:10051"
-          ];
+            "162:162"
+                  ];
           volumes = [
             "/docker/zabbix/proxy/db_data:/var/lib/zabbix/db_data/"
             "/docker/nixos-public/zabbix/MIBs:/var/lib/zabbix/mibs/"
@@ -54,6 +55,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           environment.ZBX_SERVER_HOST = "zabbix.monkey-duck.ts.net";
           environment.ZBX_PROXYMODE = "0";
           environment.ZBX_HOSTNAME = "${hostname}";
+          environment.ZBX_ENABLE_SNMP_TRAPS = "true";
         };
   };
 
