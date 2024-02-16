@@ -94,8 +94,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           ${tailscale}/bin/tailscale up -authkey ${ts_key}
           exit 0
         fi
-        ${tailscale}/bin/tailscale up -authkey ${ts_key}
-      fi
+        ${tailscale}/bin/tailscale up -authkey ${ts_key}      
     '';
   };
 
