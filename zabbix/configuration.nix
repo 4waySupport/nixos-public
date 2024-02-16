@@ -90,21 +90,12 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 
   script = with pkgs; ''
       sleep 2
-      status="$(${tailscale}/bin/tailscale status -json | ${jq}/bin/jq -r .BackendState)"
-      if [ ${tsroute_enabled} = "y" ]; then # if tailscale routing is enabled.
-        if [ $status = "Running" ]; then
-          ${tailscale}/bin/tailscale up -authkey ${ts_key} --advertise-routes ${tssubnet}
-          exit 0
-        fi
-        ${tailscale}/bin/tailscale up -authkey ${ts_key} --advertise-routes ${tssubnet}
-      else # if tailscale routing is not enabled
         if [ $status = "Running" ]; then #
           ${tailscale}/bin/tailscale up -authkey ${ts_key}
           exit 0
         fi
         ${tailscale}/bin/tailscale up -authkey ${ts_key}
       fi
-
     '';
   };
 
