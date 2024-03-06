@@ -38,3 +38,9 @@ reboot
 # Finally, run the rebuild switch command to become the latest version of the config
 # Note, that it will appear to get stuck at this point, go to the Tailscale portal to approve the device
 nixos-rebuild switch
+
+# Download the MIBs
+git clone -n --depth=1 --filter=tree:0 https://github.com/4waySupport/nixos-public/
+cd nixos-public
+git sparse-checkout set --no-cone zabbix/MIBs zabbix/externalscripts zabbix/modules
+git checkout
