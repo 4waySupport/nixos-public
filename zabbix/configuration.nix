@@ -39,7 +39,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Define our Zabbix Proxy container
   virtualisation.arion.projects.zabbix.settings.services = {
         zabbixproxy.service = {
-          image = "zabbix/zabbix-proxy-sqlite3:6.4.11-alpine";
+          image = "zabbix/zabbix-proxy-sqlite3:6.4.12-alpine";
           user = "root";
           ports = [            
             "10051:10051"
@@ -61,7 +61,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Define our Zabbix Agent container
    virtualisation.arion.projects.zabbix.settings.services = {
         zabbixagent.service = {
-          image = "zabbix/zabbix-agent2:6.4.11-alpine";
+          image = "zabbix/zabbix-agent2:6.4.12-alpine";
           user = "root";
           ports = [
             "10050:10050"
