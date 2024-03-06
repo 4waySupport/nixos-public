@@ -40,6 +40,7 @@ reboot
 nixos-rebuild switch
 
 # Download the MIBs
+cd /docker/
 git clone -n --depth=1 --filter=tree:0 https://github.com/4waySupport/nixos-public/
 cd nixos-public
 git sparse-checkout set --no-cone zabbix/MIBs zabbix/externalscripts zabbix/modules
