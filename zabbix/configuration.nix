@@ -55,6 +55,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           environment.ZBX_PROXYMODE = "0";
           environment.ZBX_HOSTNAME = "${hostname}";
           environment.ZBX_ENABLE_SNMP_TRAPS = "true";
+          environment.ZBX_STARTVMWARECOLLECTORS = "3";
         };
   };
 
