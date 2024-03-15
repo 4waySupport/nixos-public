@@ -58,7 +58,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           environment.ZBX_STARTVMWARECOLLECTORS = "25";
           environment.ZBX_VMWAREFREQUENCY = "60";
           environment.ZBX_VMWAREPERFFREQUENCY = "60";
-          environment.ZBX_VMWARECACHESIZE = "1024M";
+          environment.ZBX_VMWARECACHESIZE = "2G";
           environment.ZBX_VMWARETIMEOUT = "60";
         };
   };
