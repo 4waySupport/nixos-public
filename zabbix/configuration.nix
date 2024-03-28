@@ -102,7 +102,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
           ${tailscale}/bin/tailscale up -authkey ${ts_key} --ssh --reset --accept-risk=lose-ssh && tailscale set --auto-update
           exit 0
         fi
-        ${tailscale}/bin/tailscale up -authkey ${ts_key} --ssh --reset --accept-risk=lose-ssh && tailscale set --auto-update
+        ${tailscale}/bin/tailscale up -authkey ${ts_key} --ssh && tailscale set --auto-update      
     '';
   };
 
