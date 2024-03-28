@@ -85,6 +85,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Enable Tailscale
   services.tailscale.enable = true;
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
+  boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
   networking.firewall.enable = false;
   networking.firewall.checkReversePath = "loose";
 
@@ -108,6 +109,9 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Enable SSH.
   services.openssh.enable = true;
   services.openssh.settings.PermitRootLogin = "yes";
+
+  # Proxmox Guest Tools
+  services.qemuGuest.enable = true;
 
   # Sorandom
   system.stateVersion = "23.11";
