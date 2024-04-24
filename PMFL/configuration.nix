@@ -42,11 +42,11 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     script = with pkgs; ''
         sleep 2
           if [ $status = "Running" ]; then
-            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
+            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh --advertise-exit-node
             # tailscale set --auto-update
             exit 0
           fi
-          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
+          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh --advertise-exit-node
           # tailscale set --auto-update      
       '';
   };
