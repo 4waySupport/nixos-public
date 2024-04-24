@@ -1,5 +1,3 @@
-Installing Zabbix on Nix OS
-
 # TL:DR (skip to the next section if this is your first time
 ip -a
 passwd
