@@ -15,6 +15,18 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # systemd
   boot.loader.systemd-boot.enable = true;
 
+  # Garbage collection
+  nix.gc = {
+    automatic = true;
+    options = "--delete-older-than 14d";
+  };
+
+  # Optimise store
+  nix.optimise = {
+    automatic = true;
+    dates = [ "04:00" ];
+  };
+
   # Networking
   networking.hostName = "${hostname}";
   networking.useDHCP = true;
