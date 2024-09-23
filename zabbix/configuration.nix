@@ -11,6 +11,12 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
       # Download arion and build from source
       ((builtins.fetchTarball "https://github.com/hercules-ci/arion/archive/f295eabd25b7c894ab405be784e2a010f83fde55.tar.gz") + "/nixos-module.nix")
     ];
+  # Autoupdate
+  system.autoUpgrade ={
+    enable = true;
+    dates = "04:00";
+    allowReboot = false;
+  };
 
   # systemd
   boot.loader.systemd-boot.enable = true;
