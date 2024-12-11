@@ -23,3 +23,5 @@ cat <<EOF > /etc/nixos/common.nix
   tsroute_enabled = "$tsroute_enabled";  
 }
 EOF
+
+echo $tskey > /etc/nixos/tskey
