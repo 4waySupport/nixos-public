@@ -18,6 +18,15 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     allowReboot = false;
   };
 
+  nixpkgs = {
+    config = {
+      allowUnfree = true;
+      packageOverrides = pkgs: {
+      unstable = import (fetchTarball "https://github.com/NixOS/nixpkgs/archive/nixos-unstable.tar.gz") {};
+      };
+    };
+  };
+
   # systemd
   boot.loader.systemd-boot.enable = true;
 
@@ -40,7 +49,6 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 
   # Install these packages
   environment.systemPackages = with pkgs; [
-    tailscale
     unzip
     wget
     arion
@@ -102,6 +110,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 
   # Enable Tailscale
   services.tailscale.enable = true;
+  services.tailscale.package = pkgs.unstable.tailscale;
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
   networking.firewall.enable = false;
