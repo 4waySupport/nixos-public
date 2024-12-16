@@ -123,17 +123,17 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
     wantedBy = [ "multi-user.target" ];
     serviceConfig.Type = "oneshot";
 
-    script = with pkgs; ''
-        sleep 2
-          if [ $status = "Running" ]; then
-            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
-            # tailscale set --auto-update
-            exit 0
-          fi
-          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
-          # tailscale set --auto-update      
-      '';
-  };
+#    script = with pkgs; ''
+#        sleep 2
+#          if [ $status = "Running" ]; then
+#            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
+#            # tailscale set --auto-update
+#            exit 0
+#          fi
+#          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
+#          # tailscale set --auto-update      
+#      '';
+#  };
 
   # Enable SSH.
   services.openssh.enable = true;
