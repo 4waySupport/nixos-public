@@ -67,7 +67,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
         zabbixproxy.service = {
           image = "zabbix/zabbix-proxy-sqlite3:6.4.12-alpine";
           user = "root";
-          ports = [            
+          ports = [
             "10051:10051"
             "162:162"
                   ];
@@ -111,6 +111,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
   # Enable Tailscale
   services.tailscale.enable = true;
   services.tailscale.package = pkgs.unstable.tailscale;
+  services.tailscale.authKeyFile = "/etc/nixos/tskey";
   boot.kernel.sysctl."net.ipv4.ip_forward" = 1;
   boot.kernel.sysctl."net.ipv6.conf.all.forwarding" = 1;
   networking.firewall.enable = false;
@@ -126,12 +127,12 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 #    script = with pkgs; ''
 #        sleep 2
 #          if [ $status = "Running" ]; then
-#            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
+#            ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh --reset
 #            # tailscale set --auto-update
 #            exit 0
 #          fi
-#          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
-#          # tailscale set --auto-update      
+#          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh --reset
+#          # tailscale set --auto-update
 #      '';
   };
 
