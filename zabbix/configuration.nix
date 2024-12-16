@@ -133,7 +133,7 @@ let inherit (import /etc/nixos/common.nix) hostname username ts_key tsroute_enab
 #          ${tailscale}/bin/tailscale up --authkey ${ts_key} --ssh 
 #          # tailscale set --auto-update      
 #      '';
-#  };
+  };
 
   # Enable SSH.
   services.openssh.enable = true;
